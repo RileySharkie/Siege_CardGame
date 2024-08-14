@@ -1,7 +1,8 @@
 import csv
 from dataclasses import dataclass
-from itertools import chain
 from pygame_cards.abstract import AbstractCard
+from pygame_cards.set import CardsSet
+from pprint import pprint
 
 @dataclass
 class siegeCard(AbstractCard):
@@ -17,15 +18,14 @@ class siegeCard(AbstractCard):
     might: int
     morale: int
     count: int
-    deck: int
 
-loadedDecks = ['wild']
-enabledDecks = dict()
-
+loadedDecks = ['wild', 'unit']
+enabledDecks: dict[str, CardsSet] = dict()
 # Start making cards from relevant csvfiles
 # Load card file
 for deck in loadedDecks:
     filename = (deck + "Deck.csv") 
+    enabledDecks[deck] = CardsSet()
 
 # open and read the file
 # place the first row as a list of field headings in 'fields'
@@ -38,13 +38,11 @@ for deck in loadedDecks:
         fields = next(csvreader)
         for row in csvreader:
             rows.append(row)
-#Begin assembling all cards into enabledDecks
+    #Begin assembling all cards into enabledDecks
     for row in rows:
-        newestCard = siegeCard(*row, deck)
-        if newestCard.deck in enabledDecks:
-            enabledDecks[newestCard.deck] += newestCard
-        else:
-            enabledDecks[newestCard.deck] = [newestCard]
+        newestCard = siegeCard(*row)
+        # Append to corresponding deck
+        enabledDecks[deck].append(newestCard)
 
 
-print(enabledDecks)
+pprint(enabledDecks)
