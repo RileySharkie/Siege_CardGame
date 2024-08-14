@@ -1,0 +1,23 @@
+cardName,defense,effect,goldValue,leatherValue,woodValue,stoneValue,ironValue,prestiegeValue,canFight,might,morale,count
+Old Growth Forest,,,,,3,,,,FALSE,,,3
+Pine Grove,,,,,2,,,,FALSE,,,5
+Twig Blight,,,,,1,,,,TRUE,1,1,3
+Irontusk Boar,,mustFight,,3,,,1,,TRUE,4,4,2
+Deer,,willFlee,,2,,,,,TRUE,2,1,4
+Prize Elk,,willFlee,1,2,,,,1,TRUE,5,4,1
+Rabbit,,willFlee,,1,,,,,TRUE,0,1,5
+Dire Rabbit,,mustFight,,3,,,,,TRUE,3,2,1
+Stone Golem,,mustFight,,,,3,1,,TRUE,4,6,3
+Jeweled Golem,,mustFight,2,,,2,1,,TRUE,5,6,1
+Marble Deposit,,,,,,3,,,FALSE,,,3
+Ruined Castle,,,,,,2,,,FALSE,,,5
+Bear,,,,4,,,,,TRUE,5,4,2
+Ferrous Snail,,,,,,,3,,TRUE,1,6,2
+Abandoned Mine,,,,,,,2,,FALSE,,,3
+Iron Deposit,,,,,,,1,,FALSE,,,5
+Gold Deposit,,,1,,,,,,FALSE,,,3
+Red Dragon,,dragon,3,5,,,,1,TRUE,8,10,1
+Unicorn,,,,,,,,1,FALSE,,,1
+Chimera,,mustFight,,4,,,,1,TRUE,6,8,1
+Styrkvisnar Therian,,therian,2,3,,,,,TRUE,7,7,1
+,,,,,,,,1,TRUE,,,
