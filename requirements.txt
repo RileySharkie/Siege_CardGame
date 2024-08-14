@@ -1,3 +1,2 @@
-csv
 fuzzywuzzy
 pygame_cards
