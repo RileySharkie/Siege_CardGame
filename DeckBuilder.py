@@ -10,6 +10,7 @@ from pygame_cards.abstract import AbstractCard, AbstractCardGraphics
 from pygame_cards.set import CardsSet
 from pygame_cards.utils import position_for_centering
 # from pygame_cards.deck import Deck
+from pygame_cards.hands import HorizontalPileGraphic
 
 @dataclass
 class siegeCard(AbstractCard):
@@ -32,7 +33,8 @@ class siegeCardGraphics(AbstractCardGraphics):
     @cached_property
     def surface(self) -> pygame.Surface:
         surf = pygame.Surface(self.size)
-        surf.fill(pygame.Color(30, 30, 30))
+        surf.fill(pygame.Color(20, 20, 20, 20))
+        surf.fill(pygame.Color(30, 30, 30), pygame.Rect(2, 2, surf.get_width() - 4, surf.get_height() - 4))
         font = pygame.font.SysFont("urwgothic", 20)
         name = font.render(self.card.name, True, pygame.Color(163, 146, 139))
         # Make sure the name is centered in the x direction.
@@ -65,6 +67,9 @@ for deck in loadedDecks:
         # Append to corresponding deck
         enabledDecks[deck].append(newestCard)
 
+player_hand = CardsSet()
+
+
 
 if __name__ == "__main__":
     # A very simple game loop to show the cards
@@ -73,19 +78,30 @@ if __name__ == "__main__":
     size = width, height = 800, 600
 
     screen = pygame.display.set_mode(size)
-    screen.fill("black")
-
-    for i, card in enumerate(enabledDecks['wild']):
-        position = (50 + i * (100 + card.graphics.size[0]), 100)
-
-        # Simply blit the card on the main surface
-        screen.blit(card.graphics.surface, position)
-    # screen.blit(Deck(enabledDecks['wild']))
-
+    screen.fill("black") 
+    
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if(event.unicode == 'w'):
+                    if(len(enabledDecks['wild']) > 0):
+                        player_hand.append(enabledDecks['wild'].pop())
+                elif(event.unicode == 's'):
+                    enabledDecks['wild'].shuffle()
+                
         pygame.display.flip()
+        
+        # player_hand.append(enabledDecks['wild'].draw(0))
+        # print(len(player_hand))
+        
+        
+        draw_pile_display = HorizontalPileGraphic(enabledDecks['wild'])
+        hand_display = HorizontalPileGraphic(player_hand, size=(1200, 200), card_size=(100, 200))
+        screen.fill("black") 
+        screen.blit(draw_pile_display.surface, (50, 100))
+        screen.blit(hand_display.surface, (50, 325))
+        
         # Make sure you don't burn your cpu
-        sleep(1)
+        sleep(0.1)
